@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>TURNOS FP INDUSTRIAL</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Turnos Fp Industrial</h1>
+        <div class="turno-header">
+            <div class="turno-nombre">Nombre</div>
+            <div class="turno-fecha">Fecha</div>
+            <div class="turno-hora">Hora</div>
+        </div>
+        <ul id="listaTurnos"></ul>
+        <div id="alertMessage" class="alert" style="display: none;">No hay turnos registrados.</div>
+    </div>
+    
+    <div class="whatsapp-container">
+        <a href="https://wa.me/8292865673" target="_blank" class="whatsapp-button">
+            <img src="whatsapp-icon.png" alt="WhatsApp" class="whatsapp-icon">
+            Contactar por WhatsApp
+        </a>
+    </div>
+
+    <script>
+        const turnos = JSON.parse(localStorage.getItem('turnos')) || [];
+
+        const listaTurnos = document.getElementById('listaTurnos');
+        const alertMessage = document.getElementById('alertMessage');
+
+        if (turnos.length === 0) {
+            alertMessage.style.display = 'block';
+        } else {
+            alertMessage.style.display = 'none';
+            turnos.forEach(turno => {
+                const li = document.createElement('li');
+                li.className = 'turno-item';
+
+                const turnoInfo = document.createElement('div');
+                turnoInfo.className = 'turno-info';
+                
+                const nombreDiv = document.createElement('div');
+                nombreDiv.className = 'turno-nombre';
+                nombreDiv.textContent = turno.nombre;
+
+                const fechaDiv = document.createElement('div');
+                fechaDiv.className = 'turno-fecha';
+                const fechaParts = turno.fecha.split('-');
+                fechaDiv.textContent = `${fechaParts[2]}-${fechaParts[1]}-${fechaParts[0]}`; // Cambiar el formato a día-mes-año
+
+                const horaDiv = document.createElement('div');
+                horaDiv.className = 'turno-hora';
+                horaDiv.textContent = turno.hora;
+
+                const descripcionDiv = document.createElement('div');
+                descripcionDiv.className = 'turno-descripcion';
+                descripcionDiv.textContent = turno.descripcion;
+
+                turnoInfo.appendChild(nombreDiv);
+                turnoInfo.appendChild(fechaDiv);
+                turnoInfo.appendChild(horaDiv);
+                
+                li.appendChild(turnoInfo);
+                li.appendChild(descripcionDiv);
+                listaTurnos.appendChild(li);
+            });
+        }
+    </script>
+</body>
+</html>
