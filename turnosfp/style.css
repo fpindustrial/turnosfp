@@ -1,0 +1,147 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-image: url('fondo-soldadura.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+h1 {
+    text-align: center;
+    color: #3c4043;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s;
+}
+
+.container:hover {
+    transform: scale(1.02);
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0; /* Eliminar margen para mantener todo en su lugar */
+}
+
+li {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 15px;
+    margin: 5px 0;
+    background-color: #e3f2fd;
+    border-radius: 4px;
+    position: relative;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+li:hover {
+    background-color: #bbdefb;
+    transform: translateY(-2px);
+}
+
+.alert {
+    color: red;
+    font-weight: bold;
+    text-align: center;
+}
+
+.turno-header {
+    display: grid;
+    grid-template-columns: 2fr 1.5fr 1.5fr; /* Proporciones ajustadas */
+    background-color: #bbdefb;
+    padding: 10px;
+    border-radius: 4px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.turno-header div {
+    text-align: center;
+    padding: 5px;
+}
+
+.turno-info {
+    display: grid;
+    grid-template-columns: 2fr 1.5fr 1.5fr; /* Proporciones ajustadas */
+    gap: 10px; /* Espacio ligeramente aumentado */
+    width: 100%;
+}
+
+.turno-nombre,
+.turno-fecha,
+.turno-hora {
+    text-align: center;
+    padding: 5px;
+    background-color: #e0f7fa;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.turno-descripcion {
+    text-align: center;
+    font-style: italic;
+    color: #555;
+    margin-top: 10px;
+}
+
+li:hover .turno-nombre,
+li:hover .turno-fecha,
+li:hover .turno-hora {
+    background-color: #b2ebf2; /* Color al pasar el mouse */
+}
+
+/* Estilos para el botón de WhatsApp */
+.whatsapp-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.whatsapp-button {
+    text-decoration: none;
+    color: #fff; /* Color de texto */
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    background-color: #25D366; /* Color de WhatsApp */
+    padding: 10px 20px;
+    border-radius: 30px; /* Bordes redondeados */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.whatsapp-button:hover {
+    background-color: #128C7E; /* Color al pasar el mouse */
+    transform: scale(1.05); /* Efecto de aumento */
+}
+
+.whatsapp-icon {
+    width: 20px; /* Ajusta el tamaño del icono */
+    height: 20px;
+    margin-right: 8px;
+}
