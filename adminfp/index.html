@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Panel de Administración</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Agregar Turnos</h1>
+        <input type="text" id="nombreInput" placeholder="Nombre">
+        <input type="date" id="fechaInput">
+        <input type="time" id="horaInput">
+        <input type="text" id="descripcionInput" placeholder="Descripción">
+        <button id="agregarBtn">Agregar Turno</button>
+    </div>
+
+    <div class="container">
+        <h1>Eliminar Turnos</h1>
+        <ul id="listaTurnosAdmin"></ul>
+        <div id="alertMessageAdmin" class="alert" style="display: none;">No hay turnos registrados.</div>
+    </div>
+
+    <script>
+        document.getElementById('agregarBtn').addEventListener('click', agregarTurno);
+
+        function agregarTurno() {
+            const nombre = document.getElementById('nombreInput').value.trim();
+            const fecha = document.getElementById('fechaInput').value;
+            const hora = document.getElementById('horaInput').value;
+            const descripcion = document.getElementById('descripcionInput').value.trim();
+
+            if (nombre === "" || !fecha || !hora || descripcion === "") {
+                alert("Por favor, complete todos los campos.");
+                return;
+            }
+
+            const turnos = JSON.parse(localStorage.getItem('turnos')) || [];
+            turnos.push({ nombre, fecha, hora, descripcion });
+            localStorage.setItem('turnos', JSON.stringify(turnos));
+
+            alert("Turno agregado.");
+            document.getElementById('nombreInput').value = "";
+            document.getElementById('fechaInput').value = "";
+            document.getElementById('horaInput').value = "";
+            document.getElementById('descripcionInput').value = "";
+
+            mostrarTurnos();
+        }
+
+        function mostrarTurnos() {
+            const turnosAdmin = JSON.parse(localStorage.getItem('turnos')) || [];
+            const listaTurnosAdmin = document.getElementById('listaTurnosAdmin');
+            listaTurnosAdmin.innerHTML = '';
+            const alertMessageAdmin = document.getElementById('alertMessageAdmin');
+
+            if (turnosAdmin.length === 0) {
+                alertMessageAdmin.style.display = 'block';
+            } else {
+                alertMessageAdmin.style.display = 'none';
+                turnosAdmin.forEach(turno => {
+                    const li = document.createElement('li');
+
+                    const turnoInfo = document.createElement('div');
+                    turnoInfo.className = 'turno-info';
+                    
+                    const nombreDiv = document.createElement('div');
+                    nombreDiv.className = 'turno-nombre';
+                    nombreDiv.textContent = turno.nombre;
+
+                    const fechaDiv = document.createElement('div');
+                    fechaDiv.className = 'turno-fecha';
+                    fechaDiv.textContent = turno.fecha;
+
+                    const horaDiv = document.createElement('div');
+                    horaDiv.className = 'turno-hora';
+                    horaDiv.textContent = turno.hora;
+
+                    const descripcionDiv = document.createElement('div');
+                    descripcionDiv.className = 'turno-descripcion';
+                    descripcionDiv.textContent = turno.descripcion;
+
+                    const btnEliminar = document.createElement('button');
+                    btnEliminar.textContent = 'Eliminar';
+                    btnEliminar.className = 'delete';
+                    btnEliminar.addEventListener('click', () => {
+                        const index = turnosAdmin.indexOf(turno);
+                        turnosAdmin.splice(index, 1);
+                        localStorage.setItem('turnos', JSON.stringify(turnosAdmin));
+                        mostrarTurnos();
+                    });
+
+                    turnoInfo.appendChild(nombreDiv);
+                    turnoInfo.appendChild(fechaDiv);
+                    turnoInfo.appendChild(horaDiv);
+                    li.appendChild(turnoInfo);
+                    li.appendChild(descripcionDiv);
+                    li.appendChild(btnEliminar);
+                    listaTurnosAdmin.appendChild(li);
+                });
+            }
+        }
+
+        // Cargar turnos al iniciar
+        mostrarTurnos();
+    </script>
+</body>
+</html>
